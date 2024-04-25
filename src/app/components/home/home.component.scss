@@ -1,0 +1,64 @@
+img {
+    max-height: 400px;
+    border-radius: 10px;
+}
+
+.guesser {
+    display: flex;
+}
+
+h1.odd {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    min-height: 100%;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 60px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.arrow-up,
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+}
+
+.arrow-up {
+    border-bottom: 75px solid green;
+    position: relative;
+}
+
+.arrow-down {
+    border-top: 75px solid red;
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+    margin-right: 10%;
+}

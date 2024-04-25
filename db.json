@@ -1,0 +1,28 @@
+{
+  "user": [
+    {
+      "id": "teste",
+      "name": "teste",
+      "password": "Miguel30%",
+      "email": "teste@gmail.com",
+      "gender": "male",
+      "balance": 49
+    },
+    {
+      "id": "teste2",
+      "name": "teste2",
+      "password": "Miguel30%",
+      "email": "teste2@gmail.com",
+      "gender": "male",
+      "balance": 51
+    },
+    {
+      "id": "gsanson",
+      "name": "gigi",
+      "password": "Gigizinha22%",
+      "email": "gisansonme@gmail.com",
+      "gender": "female",
+      "balance": 49
+    }
+  ]
+}

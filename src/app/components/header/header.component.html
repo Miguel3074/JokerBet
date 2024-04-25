@@ -1,0 +1,36 @@
+<header class="mainHeaderWide ">
+    <div class="mainLogo ">
+        <img routerLink="/" src="../../../assets/jokerbet.png" alt="">
+    </div>
+
+    <div class="mainHeaderCentreWide ">
+        <div class="menuItem">
+            <a>Esportes</a>
+        </div>
+        <div class="menuItem ">
+            <a>Ao-Vivo</a>
+        </div>
+    </div>
+
+    <div class="loggedOutWide" *ngIf="!isLoggedIn ;else loggdInWide">
+        <div class="LoggedOut ">
+            <div class="Icon"></div>
+        </div>
+        <div class="joinContainer ">
+            <a routerLink="/register" class="Join ">Registre-se</a>
+        </div>
+        <div class="loginContainer ">
+            <a routerLink="/login" class="Login ">Login</a>
+        </div>
+    </div>
+    <ng-template #loggdInWide>
+        <div class="loggedInWide">
+            <mat-card>
+                <mat-card-content>{{UserName}}</mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-card-content>{{this.authService.getBalance()}}</mat-card-content>
+            </mat-card>
+        </div>
+    </ng-template>
+</header>

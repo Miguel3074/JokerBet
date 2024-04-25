@@ -1,0 +1,48 @@
+<div class="guesser">
+    <div class="form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Bet amount:</mat-label>
+            <input matInput placeholder="Min: 0.75" [(ngModel)]="betAmount" name="betAmount" type="number" min="0.76" max="{{this.authSrvc.getBalance()}}"
+                required [disabled]="playing">
+            <mat-error *ngIf="betAmount < 0.75">The value must be higher than 0.75</mat-error>
+            <mat-error *ngIf="betAmount > this.authSrvc.getBalance()">You have less than that on you balance</mat-error>
+        </mat-form-field>
+        <mat-card>
+            <mat-card-content>{{bettingValue}}</mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="buttons">
+        <div class="guess">
+            <button [disabled]="!playing" class="button increase" (click)="checkOver()">
+                <span class="arrow-up"></span>
+                <span class="icon">+</span>
+            </button>
+            <div *ngIf="newValue && playing">
+                <h1 class="odd">{{odds.getOverValue(newValue)}}x</h1>
+            </div>
+        </div>
+
+        <button mat-raised-button color="primary" *ngIf="!playing; else stop"
+            [disabled]="!betAmount || betAmount < 0.75 || betAmount > this.authSrvc.getBalance()" (click)="play()">Play</button>
+        <ng-template #stop>
+            <button mat-raised-button color="primary" (click)="withdraw()">Withdraw</button>
+        </ng-template>
+
+        <div class="guess">
+            <div *ngIf="newValue && playing">
+                <h1 class="odd">{{odds.getUnderValue(newValue)}}x</h1>
+            </div>
+            <button [disabled]="!playing" class="button decrease" (click)="checkUnder()">
+                <span class="arrow-down"></span>
+                <span class="icon">-</span>
+            </button>
+        </div>
+    </div>
+    <div *ngIf="playing; else back">
+        <img [src]="'../../../assets/cards/' + randomCard + '.png'" alt="Random Card">
+    </div>
+    <ng-template #back>
+        <img src="../../../assets/cards/back.png" alt="Back of card">
+    </ng-template>
+</div>

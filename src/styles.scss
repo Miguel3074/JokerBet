@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    --cx-color-primary: #3b93d5;
+    --cx-dark-color: #24262b;
+    --cx-dark-body-color: #30343e;
+    margin: 0;
+}
+
+img{
+    max-width: 100%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

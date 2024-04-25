@@ -1,0 +1,40 @@
+.mainLogo{
+    max-width: 300px;
+    padding: 5px;
+    margin: 10px 10px;
+    border-radius: 10px;
+}
+.mainHeaderWide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #24262b;
+    min-height: 10%;
+}
+
+.loggedOutWide {
+    min-width: 300px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.mainHeaderCentreWide {
+    display: flex;
+    min-width: 300px;
+    justify-content: space-around;
+}
+
+.menuItem, .joinContainer, .loginContainer{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    padding: 5px;
+    min-height: 40px;
+    color: #fff;
+}
+
+.loggedInWide {
+    display: flex;
+    justify-content: space-between;
+    min-width: 120px;
+}
