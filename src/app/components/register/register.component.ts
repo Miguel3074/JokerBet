@@ -26,21 +26,28 @@ export class RegisterComponent {
   registerform = this.builder.group({
     id: this.builder.control('', Validators.compose([Validators.required, Validators.minLength(5)])),
     name: this.builder.control('', Validators.required),
-    password: this.builder.control('', Validators.compose([Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')])),
+    password: this.builder.control('', Validators.compose([Validators.required, Validators.pattern('[A-Za-z\d#$@$!%*?&].{8,}')])),
     email: this.builder.control('', Validators.compose([Validators.required, Validators.email])),
     gender: this.builder.control('male'),
     balance: this.builder.control(50),
+    termsAgreed: [false, Validators.requiredTrue]
   });
 
   proceedRegistration() {
-    if (this.registerform.valid) {
-      this.service.RegisterUser(this.registerform.value).subscribe(result => {
-        this.toastr.success('Please contact admin for enable access.','Registered successfully')
-        this.router.navigate(['login'])
-      });
+    const termsAgreedControl = this.registerform.get('termsAgreed');
+    if (termsAgreedControl?.value) { 
+      if (this.registerform.valid) {
+        this.service.RegisterUser(this.registerform.value).subscribe(result => {
+          this.toastr.success('Please contact admin for enable access.','Registered successfully')
+          this.router.navigate(['login'])
+        });
+      } else {
+        this.toastr.warning('Please enter valid data.')
+      }
     } else {
-      this.toastr.warning('Please enter valid data.')
+      this.toastr.warning('Please agree to the Terms of Use.')
     }
   }
+  
 
 }

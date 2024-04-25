@@ -24,7 +24,7 @@
         </div>
 
         <button mat-raised-button color="primary" *ngIf="!playing; else stop"
-            [disabled]="!betAmount || betAmount < 0.75 || betAmount > this.authSrvc.getBalance()" (click)="play()">Play</button>
+            [disabled]="!betAmount || betAmount < 0.75 || betAmount > this.authSrvc.getBalance() || !this.authSrvc.isloggedin() " (click)="play()">Play</button>
         <ng-template #stop>
             <button mat-raised-button color="primary" (click)="withdraw()">Withdraw</button>
         </ng-template>

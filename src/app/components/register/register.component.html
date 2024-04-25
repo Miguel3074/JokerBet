@@ -26,10 +26,18 @@
                 <mat-radio-group aria-label="Gender" formControlName="gender">
                     <mat-radio-button value="male">Male</mat-radio-button>
                     <mat-radio-button value="female">Female</mat-radio-button>
-                  </mat-radio-group>
+                </mat-radio-group>
             </div>
             <div>
-                <button mat-raised-button color="primary">Submit</button>
+                <mat-checkbox formControlName="termsAgreed">I agree to the 
+                    <a href="../../../assets/Terms of Use.pdf"
+                        target="_blank">
+                        <span>Terms of Use</span>
+                    </a></mat-checkbox>
+            </div>
+            <div>
+                <button mat-raised-button color="primary"
+                    [disabled]="!registerform.get('termsAgreed')?.value">Submit</button>
                 <a routerLink="/login" mat-raised-button color="accent">Cancel</a>
             </div>
 
