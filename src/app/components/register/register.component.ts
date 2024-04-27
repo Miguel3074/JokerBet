@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth.service';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../material.module';
 import { RouterModule } from '@angular/router';
+
 
 
 @Component({
@@ -49,5 +50,4 @@ export class RegisterComponent {
     }
   }
   
-
 }

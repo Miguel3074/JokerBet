@@ -21,7 +21,10 @@ export class AuthService {
   }
 
   getUserId() {
-    return sessionStorage.getItem('id');
+    if (typeof sessionStorage !== 'undefined') {
+      return sessionStorage.getItem('id');
+    }
+    return null;
   }
 
   GetUserbyCode(id: any) {
@@ -70,7 +73,7 @@ export class AuthService {
     this.balance = blnc;
   }
 
-  getBalance() {
+  getBalance() { //ARRUMAR O GET DO SALDO
     return this.balance;
   }
 }

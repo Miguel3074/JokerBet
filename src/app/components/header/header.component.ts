@@ -14,12 +14,10 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent {
 
-  isLoggedIn: boolean = false;
   UserName: any;
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
       this.UserName = this.authService.getUsername();
       if(isLoggedIn){
         this.authService.GetUserbyCode(this.authService.getUserId()).subscribe(

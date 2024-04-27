@@ -19,6 +19,7 @@ h1.odd {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
 
 .button {
@@ -61,4 +62,36 @@ h1.odd {
     align-items: stretch;
     justify-content: space-evenly;
     margin-right: 50px;
+}
+
+@media screen and (max-width: 700px) {
+    .guesser {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .buttons {
+        flex-direction: row;
+        margin-top: 15px;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .arrow-up,
+    .arrow-down {
+        border-left: 35px solid transparent;
+        border-right: 35px solid transparent;
+    }
+
+    .arrow-up {
+        border-bottom: 35px solid green;
+    }
+
+    .arrow-down {
+        border-top: 35px solid red;
+    }
+
+    .form{
+        margin-right: 0;
+    }
 }

@@ -3,7 +3,7 @@
         <img routerLink="/" src="../../../assets/jokerbet.png" alt="">
     </div>
 
-    <div class="loggedOutWide" *ngIf="!isLoggedIn ;else loggdInWide">
+    <div class="loggedOutWide" *ngIf="!this.authService.isloggedin();else loggdInWide">
         <div class="LoggedOut ">
             <div class="Icon"></div>
         </div>
@@ -16,6 +16,11 @@
     </div>
     <ng-template #loggdInWide>
         <div class="loggedInWide">
+
+
+            <!--      PRECISO FAZER O BOTAO DE LOGOUT  E ARRUMAR O SALDO          -->
+
+
             <mat-card>
                 <mat-card-content>{{UserName}}</mat-card-content>
             </mat-card>

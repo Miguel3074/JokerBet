@@ -22,6 +22,7 @@ export class HomeComponent {
   newValue!: number;
   randomCard!: string;
   playing: boolean = false;
+  lost: boolean = false;
   betAmount!: number;
   bettingValue!: number;
   odds: OddsService;
@@ -48,6 +49,7 @@ export class HomeComponent {
 
   play() {
     this.playing = true;
+    this.lost = false;
     this.authSrvc.setBalance(+(this.authSrvc.getBalance() - this.betAmount).toFixed(2));
     this.bettingValue = this.betAmount;
     this.randomizeCard();
@@ -67,6 +69,7 @@ export class HomeComponent {
     if (this.currentValue < this.newValue) {
       this.bettingValue = 0;
       this.playing = false;
+      this.lost = true;
     }
     else if (this.currentValue > this.newValue) {
       this.bettingValue = +((this.bettingValue * this.odds.getUnderValue(this.currentValue)).toFixed(2));
@@ -80,6 +83,7 @@ export class HomeComponent {
     if (this.currentValue > this.newValue) {
       this.bettingValue = 0;
       this.playing = false;
+      this.lost = true;
     }
     else if (this.currentValue < this.newValue) {
       this.bettingValue = +((this.bettingValue * this.odds.getOverValue(this.currentValue)).toFixed(2));

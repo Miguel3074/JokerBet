@@ -11,7 +11,7 @@
             <mat-card-content>{{bettingValue}}</mat-card-content>
         </mat-card>
     </div>
-
+    
     <div class="buttons">
         <div class="guess">
             <button [disabled]="!playing" class="button increase" (click)="checkOver()">
@@ -39,8 +39,13 @@
             </button>
         </div>
     </div>
-    <div *ngIf="playing; else back">
+    <div *ngIf="playing || lost; else back">
         <img [src]="'../../../assets/cards/' + randomCard + '.png'" alt="Random Card">
+        <div *ngIf="lost"> 
+            <h1>
+                You Lost!
+            </h1>
+        </div>
     </div>
     <ng-template #back>
         <img src="../../../assets/cards/back.png" alt="Back of card">
