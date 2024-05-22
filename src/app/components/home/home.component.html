@@ -42,7 +42,7 @@
     <div *ngIf="playing || lost; else back">
         <img [src]="'../../../assets/cards/' + randomCard + '.png'" alt="Random Card">
         <div *ngIf="lost"> 
-            <h1>
+            <h1 ngClass="lostMessage">
                 You Lost!
             </h1>
         </div>

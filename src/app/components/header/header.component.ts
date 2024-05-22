@@ -15,15 +15,20 @@ import { Observable } from 'rxjs';
 export class HeaderComponent {
 
   UserName: any;
+  Balance: any;
+
+  constructor(public authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
       this.UserName = this.authService.getUsername();
-      if(isLoggedIn){
+      if (isLoggedIn) {
         this.authService.GetUserbyCode(this.authService.getUserId()).subscribe(
           user => {
             if (user) {
               this.authService.setBalance(user.balance);
+              this.Balance = user.balance;
             } else {
               console.error('User Not Found');
             }
@@ -32,9 +37,16 @@ export class HeaderComponent {
         );
       }
     });
+    if(this.Balance == undefined){
+      this.logOut();
+    }
   }
 
-  constructor(public authService: AuthService) {
+  logOut() {
+    this.UserName = null;
+    sessionStorage.setItem('id', 'undefined');
+    sessionStorage.setItem('name', 'undefined');
+    sessionStorage.setItem('email', 'undefined');
+    sessionStorage.setItem('balance', 'undefined');
   }
-
 }

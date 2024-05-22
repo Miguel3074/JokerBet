@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   getUsername() {
-    if (typeof sessionStorage !== 'undefined') {
+    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('name') != 'undefined') {
       return sessionStorage.getItem('name');
     }
     return null;
@@ -71,9 +71,10 @@ export class AuthService {
 
   setBalance(blnc: any) {
     this.balance = blnc;
+    this.http.post(this.apiurl +"/"+ sessionStorage.getItem('id'), blnc)  //ARRUMAR PARA PERSISTIR O SALDO DEPOIS DE CADA OPERAÇÂO
   }
 
-  getBalance() { //ARRUMAR O GET DO SALDO
+  getBalance() {
     return this.balance;
   }
 }

@@ -64,6 +64,18 @@ h1.odd {
     margin-right: 50px;
 }
 
+.lostMessage {
+    display: flex;
+    position: absolute;
+    top: 38%;
+    z-index: 999;
+    padding-left: 90px !important;
+    background: red;
+    padding-right: 90px !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 @media screen and (max-width: 700px) {
     .guesser {
         display: flex;
