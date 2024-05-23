@@ -6,7 +6,7 @@
       "password": "123456",
       "email": "teste@gmail.com",
       "gender": "male",
-      "balance": 49,
+      "balance": 38.63,
       "termsAgreed": true
     },
     {
@@ -16,15 +16,6 @@
       "email": "teste2@gmail.com",
       "gender": "male",
       "balance": 51,
-      "termsAgreed": true
-    },
-    {
-      "id": "gsanson",
-      "name": "gigi",
-      "password": "Gigizinha22%",
-      "email": "gisansonme@gmail.com",
-      "gender": "female",
-      "balance": 49,
       "termsAgreed": true
     }
   ]

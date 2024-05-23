@@ -22,31 +22,27 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      this.UserName = this.authService.getUsername();
+
+      this.authService.getUsername().then(username => {
+        this.UserName = username;
+      });
+      this.authService.getBalance().then(balance => {
+        this.Balance = balance;
+      });
+
       if (isLoggedIn) {
         this.authService.GetUserbyCode(this.authService.getUserId()).subscribe(
           user => {
             if (user) {
               this.authService.setBalance(user.balance);
-              this.Balance = user.balance;
-            } else {
-              console.error('User Not Found');
             }
-          },
-          error => console.error('Error to get the user', error)
+          }
         );
       }
     });
-    if(this.Balance == undefined){
-      this.logOut();
-    }
   }
-
+  
   logOut() {
     this.UserName = null;
-    sessionStorage.setItem('id', 'undefined');
-    sessionStorage.setItem('name', 'undefined');
-    sessionStorage.setItem('email', 'undefined');
-    sessionStorage.setItem('balance', 'undefined');
   }
 }

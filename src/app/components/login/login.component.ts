@@ -17,8 +17,6 @@ import { AuthService } from '../../service/auth.service';
 export class LoginComponent {
   constructor(private builder: FormBuilder, private toastr: ToastrService, private service: AuthService,
     private router: Router) {
-    sessionStorage.clear();
-
   }
   result: any;
 
@@ -31,11 +29,8 @@ export class LoginComponent {
     if (this.loginform.valid) {
       this.service.GetUserbyCode(this.loginform.value.id).subscribe(user => {
         this.result = user;
-        if (this.result.password === this.loginform.value.password && typeof sessionStorage !== 'undefined') {
-          sessionStorage.setItem('id', this.result.id);
-          sessionStorage.setItem('name', this.result.name);
-          sessionStorage.setItem('email', this.result.email);
-          sessionStorage.setItem('balance', this.result.balance);
+        if (this.result.password === this.loginform.value.password) {
+          this.service.setUserId(this.result.id);
           this.service.setLoggedIn(true);
           this.service.setBalance(this.result.balance);
           this.service.setCurrentUser(this.result);

@@ -30,6 +30,10 @@ import {
   TemplatePortal
 } from "./chunk-TF6JYT52.js";
 import {
+  CdkScrollableModule
+} from "./chunk-HDV6M243.js";
+import "./chunk-F2EMW7O4.js";
+import {
   animate,
   keyframes,
   state,
@@ -37,10 +41,6 @@ import {
   transition,
   trigger
 } from "./chunk-CKP23MRN.js";
-import {
-  CdkScrollableModule
-} from "./chunk-HDV6M243.js";
-import "./chunk-F2EMW7O4.js";
 import {
   A11yModule,
   BACKSPACE,

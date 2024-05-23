@@ -10,21 +10,21 @@ export class AuthService {
   isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$: Observable<any> = this.currentUserSubject.asObservable();
-  private balance!: number;
-
+  UserId!: number;
 
   constructor(private http: HttpClient) { }
-  apiurl = 'http://localhost:3000/user'
+  apiurl = 'http://localhost:3000/user';
 
   RegisterUser(inputdata: any) {
-    return this.http.post(this.apiurl, inputdata)
+    return this.http.post(this.apiurl, inputdata);
+  }
+
+  setUserId(id: number) {
+    this.UserId = id;
   }
 
   getUserId() {
-    if (typeof sessionStorage !== 'undefined') {
-      return sessionStorage.getItem('id');
-    }
-    return null;
+    return this.UserId;
   }
 
   GetUserbyCode(id: any) {
@@ -45,20 +45,8 @@ export class AuthService {
     return this.http.get('http://localhost:3000/role');
   }
 
-  getUsername() {
-    if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem('name') != 'undefined') {
-      return sessionStorage.getItem('name');
-    }
-    return null;
-  }
-
   isloggedin() {
-    if (typeof sessionStorage !== 'undefined') {
-      if (this.getUsername()) {
-        return true;
-      }
-    }
-    return false;
+    return this.loggedInSubject.value;
   }
 
   setLoggedIn(value: boolean) {
@@ -67,14 +55,48 @@ export class AuthService {
 
   setCurrentUser(user: any) {
     this.currentUserSubject.next(user);
+    this.UserId = user.id;
   }
 
   setBalance(blnc: any) {
-    this.balance = blnc;
-    this.http.post(this.apiurl +"/"+ sessionStorage.getItem('id'), blnc)  //ARRUMAR PARA PERSISTIR O SALDO DEPOIS DE CADA OPERAÇÂO
+    const userId = this.getUserId();
+    if (userId) {
+      this.GetUserbyCode(userId).subscribe(user => {
+        if (user) {
+          user.balance = blnc;
+          this.updateuser(userId, user).subscribe(
+            () => {
+              this.currentUserSubject.next(user);
+            }
+          );
+        }
+      });
+    }
   }
 
-  getBalance() {
-    return this.balance;
+  getUsername() {
+    return new Promise((resolve) => {
+      let userId = this.getUserId();
+      if (userId) {
+        this.GetUserbyCode(userId).subscribe(user => {
+          if (user) {
+            resolve(user.name);
+          }
+        });
+      }
+    });
+  }
+
+  getBalance(): Promise<number> {
+    return new Promise((resolve) => {
+      let userId = this.getUserId();
+      if (userId) {
+        this.GetUserbyCode(userId).subscribe(user => {
+          if (user) {
+            resolve(user.balance);
+          }
+        });
+      }
+    });
   }
 }

@@ -26,11 +26,15 @@ export class HomeComponent {
   betAmount!: number;
   bettingValue!: number;
   odds: OddsService;
+  balance: number | null = null;
 
-  constructor(odds: OddsService,public authSrvc: AuthService) {
+  constructor(odds: OddsService, public authSrvc: AuthService) {
     this.odds = odds;
     this.buildDeck();
     this.playing = false;
+    this.authSrvc.getBalance().then((balance: number) => {
+      this.balance = balance;
+    });
   }
 
   buildDeck(): void {
@@ -50,16 +54,27 @@ export class HomeComponent {
   play() {
     this.playing = true;
     this.lost = false;
-    this.authSrvc.setBalance(+(this.authSrvc.getBalance() - this.betAmount).toFixed(2));
+    this.authSrvc.getBalance().then((balance: number) => {
+      this.authSrvc.setBalance(+(balance - this.betAmount).toFixed(2));
+    });
     this.bettingValue = this.betAmount;
     this.randomizeCard();
   }
 
+  checkBetAmountValidity() {
+    return this.betAmount !== null && this.betAmount >= 0.75 && this.balance !== null && this.betAmount <= this.balance && this.authSrvc.isloggedin();
+  }
+
+  checkBalance() {
+    return this.balance !== null && this.betAmount <= this.balance;
+  }
 
   withdraw() {
-    this.authSrvc.setBalance(+(this.authSrvc.getBalance() + this.bettingValue).toFixed(2));
-    this.bettingValue = 0;
-    this.playing = false;
+    this.authSrvc.getBalance().then((balance: number) => {
+      this.authSrvc.setBalance(+(balance + this.bettingValue).toFixed(2));
+      this.bettingValue = 0;
+      this.playing = false;
+    });
   }
 
   checkUnder() {

@@ -2,10 +2,10 @@
     <div class="form">
         <mat-form-field class="example-full-width">
             <mat-label>Bet amount:</mat-label>
-            <input matInput placeholder="Min: 0.75" [(ngModel)]="betAmount" name="betAmount" type="number" min="0.76" max="{{this.authSrvc.getBalance()}}"
+            <input matInput placeholder="Min: 0.75" [(ngModel)]="betAmount" name="betAmount" type="number" min="0.76" max="{{balance}}"
                 required [disabled]="playing">
             <mat-error *ngIf="betAmount < 0.75">The value must be higher than 0.75</mat-error>
-            <mat-error *ngIf="betAmount > this.authSrvc.getBalance()">You have less than that on you balance</mat-error>
+            <mat-error *ngIf="checkBalance()">You have less than that on you balance</mat-error>
         </mat-form-field>
         <mat-card>
             <mat-card-content>{{bettingValue}}</mat-card-content>
@@ -24,7 +24,7 @@
         </div>
 
         <button mat-raised-button color="primary" *ngIf="!playing; else stop"
-            [disabled]="!betAmount || betAmount < 0.75 || betAmount > this.authSrvc.getBalance() || !this.authSrvc.isloggedin() " (click)="play()">Play</button>
+            [disabled]="!checkBetAmountValidity()" (click)="play()">Play</button>
         <ng-template #stop>
             <button mat-raised-button color="primary" (click)="withdraw()">Withdraw</button>
         </ng-template>
