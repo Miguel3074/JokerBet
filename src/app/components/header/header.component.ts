@@ -3,7 +3,8 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { MaterialModule } from '../../../material.module';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-loto-header',
@@ -14,35 +15,27 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent {
 
-  UserName: any;
-  Balance: any;
+  username: any;
+  balance: any;
+  private subscriptions: Subscription[] = [];
 
   constructor(public authService: AuthService) {
   }
 
   ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+    this.subscriptions.push(
+      this.authService.getBalanceO().subscribe(balance => {
+        this.balance = balance;
+      })
+    );
+  }
 
-      this.authService.getUsername().then(username => {
-        this.UserName = username;
-      });
-      this.authService.getBalance().then(balance => {
-        this.Balance = balance;
-      });
-
-      if (isLoggedIn) {
-        this.authService.GetUserbyCode(this.authService.getUserId()).subscribe(
-          user => {
-            if (user) {
-              this.authService.setBalance(user.balance);
-            }
-          }
-        );
-      }
-    });
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
   
   logOut() {
-    this.UserName = null;
+    this.username = null;
+    this.ngOnDestroy()
   }
 }

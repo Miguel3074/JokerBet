@@ -1,19 +1,44 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy,OnInit {
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
   private currentUserSubject = new BehaviorSubject<any>(null);
   currentUser$: Observable<any> = this.currentUserSubject.asObservable();
   UserId!: number;
+  blnc!: number;
+  UsrNm!: string;
+  private balanceSubject = new BehaviorSubject<number>(0);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    let userId = this.getUserId();
+    if (userId) {
+      this.GetUserbyCode(userId).subscribe(user => {
+        this.blnc = user.balance;
+      });
+    }
+  }
   apiurl = 'http://localhost:3000/user';
+
+  ngOnInit(){
+    let userId = this.getUserId();
+    if (userId) {
+      this.GetUserbyCode(userId).subscribe(user => {
+        this.blnc = user.balance;
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    this.loggedInSubject.complete();
+    this.currentUserSubject.complete();
+    this.balanceSubject.complete();
+  }
 
   RegisterUser(inputdata: any) {
     return this.http.post(this.apiurl, inputdata);
@@ -60,6 +85,8 @@ export class AuthService {
 
   setBalance(blnc: any) {
     const userId = this.getUserId();
+    this.balanceSubject.next(blnc);
+    this.blnc = blnc;
     if (userId) {
       this.GetUserbyCode(userId).subscribe(user => {
         if (user) {
@@ -73,30 +100,29 @@ export class AuthService {
       });
     }
   }
-
-  getUsername() {
-    return new Promise((resolve) => {
-      let userId = this.getUserId();
-      if (userId) {
-        this.GetUserbyCode(userId).subscribe(user => {
-          if (user) {
-            resolve(user.name);
-          }
-        });
-      }
-    });
+  
+  getUsername(): string {
+    let userId = this.getUserId();
+    if (userId) {
+      this.GetUserbyCode(userId).subscribe(user => {
+        this.UsrNm = user.UserName;
+        return this.UsrNm;
+      });
+    }
+    return this.UsrNm;
   }
 
-  getBalance(): Promise<number> {
-    return new Promise((resolve) => {
-      let userId = this.getUserId();
-      if (userId) {
-        this.GetUserbyCode(userId).subscribe(user => {
-          if (user) {
-            resolve(user.balance);
-          }
-        });
-      }
-    });
+  getBalance(): number {
+    return this.blnc;
+  }
+
+  getBalanceO() {
+    let userId = this.getUserId();
+    if (userId) {
+      this.GetUserbyCode(userId).subscribe(user => {
+        this.blnc = user.balance;
+      });
+    }
+    return this.balanceSubject.asObservable();
   }
 }

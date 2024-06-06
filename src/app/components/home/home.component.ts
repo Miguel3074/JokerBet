@@ -32,9 +32,9 @@ export class HomeComponent {
     this.odds = odds;
     this.buildDeck();
     this.playing = false;
-    this.authSrvc.getBalance().then((balance: number) => {
+    this.authSrvc.getBalanceO().subscribe(balance => {
       this.balance = balance;
-    });
+    })
   }
 
   buildDeck(): void {
@@ -54,9 +54,7 @@ export class HomeComponent {
   play() {
     this.playing = true;
     this.lost = false;
-    this.authSrvc.getBalance().then((balance: number) => {
-      this.authSrvc.setBalance(+(balance - this.betAmount).toFixed(2));
-    });
+    this.authSrvc.setBalance(+(this.authSrvc.getBalance() - this.betAmount).toFixed(2))
     this.bettingValue = this.betAmount;
     this.randomizeCard();
   }
@@ -70,11 +68,9 @@ export class HomeComponent {
   }
 
   withdraw() {
-    this.authSrvc.getBalance().then((balance: number) => {
-      this.authSrvc.setBalance(+(balance + this.bettingValue).toFixed(2));
-      this.bettingValue = 0;
-      this.playing = false;
-    });
+    this.authSrvc.setBalance(+(this.authSrvc.getBalance() + this.bettingValue).toFixed(2))
+    this.bettingValue = 0;
+    this.playing = false;
   }
 
   checkUnder() {
