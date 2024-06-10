@@ -1,0 +1,55 @@
+.balance-manager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+mat-card {
+    display: flex;
+    margin: 20px;
+    width: 400px;
+    background-color: var(--cx-dark-color);
+
+    h1 {
+        color: white;
+        font-size: 34px;
+    }
+
+    mat-card-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+
+        mat-label {
+            font-size: 18px;
+            color: white;
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+
+            input {
+                width: 75px;
+            }
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+    }
+}
+
+button.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base {
+    background-color: var(--cx-color-primary);
+}
+
+span {
+    font-size: 15px;
+}

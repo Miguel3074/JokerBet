@@ -1,28 +1,44 @@
-<mat-card>
-    <mat-card-header>
-        <h1>
-            Deposit:
-        </h1>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-label>Deposit amount:</mat-label>
-        <input matInput type="number" [(ngModel)]="amountD" min="10">
-        <button (click)="Deposit(amountD)">
-            <span > Deposit </span>
-        </button>
-    </mat-card-content>
-</mat-card>
-<mat-card>
-    <mat-card-header>
-        <h1>
-            Withdraw:
-        </h1>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-label>Withdraw amount:</mat-label>
-        <input matInput type="number" [(ngModel)]="amountW" min="10" max="{{balance}}">
-        <button (click)="Withdraw(amountW)">
-            <span > Withdraw </span>
-        </button>
-    </mat-card-content>
-</mat-card>
+<div class="balance-manager">
+    <mat-card>
+        <mat-card-header>
+            <h1>
+                Deposit
+            </h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="line">
+                <mat-label>Deposit amount:</mat-label>
+                <input matInput type="number" [(ngModel)]="amountD">
+            </div>
+            <button mat-flat-button (click)="Deposit(amountD)"
+                [disabled]="!(this.amountD >= 20 && this.amountD <= 1000 && this.authService.isloggedin())">
+                <span> Deposit </span>
+            </button>
+            <div *ngIf="amountD !== undefined && !(this.amountD >= 20 && this.amountD <= 1000 && this.authService.isloggedin())"
+                class="error-message">
+                This Value has to be between 20 and 1000.
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <h1>
+                Withdraw
+            </h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="line">
+                <mat-label>Withdraw amount:</mat-label>
+                <input matInput type="number" [(ngModel)]="amountW">
+            </div>
+            <button mat-flat-button (click)="Withdraw(amountW)"
+                [disabled]="!(this.amountW >= 20 && this.amountW <= this.balance && this.authService.isloggedin())">
+                <span> Withdraw </span>
+            </button>
+            <div *ngIf="amountW !== undefined && !(this.amountW >= 20 && this.amountW <= this.balance && this.authService.isloggedin())"
+                class="error-message">
+                This Value has to be between 20 and you balance.
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
