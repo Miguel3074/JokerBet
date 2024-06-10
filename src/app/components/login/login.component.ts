@@ -33,6 +33,7 @@ export class LoginComponent {
           this.service.setUserId(this.result.id);
           this.service.setLoggedIn(true);
           this.service.setBalance(this.result.balance);
+          this.service.setUsername(this.result.name);
           this.service.setCurrentUser(this.result);
           this.router.navigate(['']);
         } else {

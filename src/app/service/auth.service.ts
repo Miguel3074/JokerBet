@@ -5,7 +5,8 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnDestroy,OnInit {
+export class AuthService implements OnDestroy, OnInit {
+
   private loggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
   private currentUserSubject = new BehaviorSubject<any>(null);
@@ -25,7 +26,7 @@ export class AuthService implements OnDestroy,OnInit {
   }
   apiurl = 'http://localhost:3000/user';
 
-  ngOnInit(){
+  ngOnInit() {
     let userId = this.getUserId();
     if (userId) {
       this.GetUserbyCode(userId).subscribe(user => {
@@ -74,6 +75,10 @@ export class AuthService implements OnDestroy,OnInit {
     return this.loggedInSubject.value;
   }
 
+  setUsername(name: any) {
+    this.UsrNm = name;
+  }
+
   setLoggedIn(value: boolean) {
     this.loggedInSubject.next(value);
   }
@@ -100,15 +105,8 @@ export class AuthService implements OnDestroy,OnInit {
       });
     }
   }
-  
+
   getUsername(): string {
-    let userId = this.getUserId();
-    if (userId) {
-      this.GetUserbyCode(userId).subscribe(user => {
-        this.UsrNm = user.UserName;
-        return this.UsrNm;
-      });
-    }
     return this.UsrNm;
   }
 
@@ -124,5 +122,13 @@ export class AuthService implements OnDestroy,OnInit {
       });
     }
     return this.balanceSubject.asObservable();
+  }
+
+  logOut() {
+    this.setLoggedIn(false);
+    this.setUserId(0);
+    this.setBalance(0);
+    this.setUsername("");
+    this.setCurrentUser(null);
   }
 }

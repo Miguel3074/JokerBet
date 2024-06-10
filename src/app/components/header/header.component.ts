@@ -33,9 +33,11 @@ export class HeaderComponent {
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
-  
+
   logOut() {
     this.username = null;
+    this.balance = null;
+    this.authService.logOut();
     this.ngOnDestroy()
   }
 }

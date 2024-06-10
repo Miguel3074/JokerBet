@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-header>
+        <h1>
+            Deposit:
+        </h1>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-label>Deposit amount:</mat-label>
+        <input matInput type="number" [(ngModel)]="amountD" min="10">
+        <button (click)="Deposit(amountD)">
+            <span > Deposit </span>
+        </button>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header>
+        <h1>
+            Withdraw:
+        </h1>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-label>Withdraw amount:</mat-label>
+        <input matInput type="number" [(ngModel)]="amountW" min="10" max="{{balance}}">
+        <button (click)="Withdraw(amountW)">
+            <span > Withdraw </span>
+        </button>
+    </mat-card-content>
+</mat-card>

@@ -16,13 +16,14 @@
     </div>
     <ng-template #loggdInWide>
         <div class="loggedInWide">
-
-
+            <button mat-fab class="logOutButton" routerLink="/balance">
+                <mat-icon aria-hidden="false">+/-</mat-icon>
+            </button>
             <mat-card>
                 <mat-card-content>{{balance}}</mat-card-content>
               </mat-card>
               <mat-card>
-                <!--<mat-card-content>{{username}}</mat-card-content> -->
+                <mat-card-content>{{this.authService.getUsername()}}</mat-card-content>
               </mat-card>
               
             <button mat-fab class="logOutButton" (click)="logOut()">
