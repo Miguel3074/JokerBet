@@ -2,8 +2,8 @@
     <div class="form">
         <mat-form-field class="example-full-width">
             <mat-label>Bet amount:</mat-label>
-            <input matInput placeholder="Min: 0.75" [(ngModel)]="betAmount" name="betAmount" type="number" min="0.75" max="{{balance}}"
-                required [disabled]="playing">
+            <input matInput placeholder="Min: 0.75" [(ngModel)]="betAmount" name="betAmount" type="number" min="0.75"
+                max="{{balance}}" required [disabled]="playing">
             <mat-error *ngIf="betAmount < 0.75">The value must be higher than 0.75</mat-error>
             <mat-error *ngIf="checkBalance()">You have less than that on you balance</mat-error>
         </mat-form-field>
@@ -11,7 +11,7 @@
             <mat-card-content>{{bettingValue}}</mat-card-content>
         </mat-card>
     </div>
-    
+
     <div class="buttons">
         <div class="guess">
             <button [disabled]="!playing" class="button increase" (click)="checkOver()">
@@ -23,8 +23,8 @@
             </div>
         </div>
 
-        <button mat-raised-button color="primary" *ngIf="!playing; else stop"
-            [disabled]="!checkBetAmountValidity()" (click)="play()">Play</button>
+        <button mat-raised-button color="primary" *ngIf="!playing; else stop" [disabled]="!checkBetAmountValidity()"
+            (click)="play()">Play</button>
         <ng-template #stop>
             <button mat-raised-button color="primary" (click)="withdraw()">Withdraw</button>
         </ng-template>
@@ -41,7 +41,7 @@
     </div>
     <div *ngIf="playing || lost; else back">
         <img [src]="'../../../assets/cards/' + randomCard + '.png'" alt="Random Card">
-        <div *ngIf="lost"> 
+        <div *ngIf="lost">
             <h1 ngClass="lostMessage">
                 You Lost!
             </h1>
@@ -50,4 +50,7 @@
     <ng-template #back>
         <img src="../../../assets/cards/back.png" alt="Back of card">
     </ng-template>
+
+    <app-historic [historic]="historic"></app-historic>
+
 </div>

@@ -5,13 +5,14 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
 import { OddsService } from '../../service/odds-service.service';
 import { AuthService } from '../../service/auth.service';
+import { HistoricComponent } from '../historic/historic.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MaterialModule, RouterModule]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, MaterialModule, RouterModule, HistoricComponent]
 })
 export class HomeComponent {
 
@@ -27,6 +28,7 @@ export class HomeComponent {
   bettingValue!: number;
   odds: OddsService;
   balance: number | null = null;
+  historic: { value: number, won: boolean }[] = [];
 
   constructor(odds: OddsService, public authSrvc: AuthService) {
     this.odds = odds;
@@ -68,7 +70,8 @@ export class HomeComponent {
   }
 
   withdraw() {
-    this.authSrvc.setBalance(+(this.authSrvc.getBalance() + this.bettingValue).toFixed(2))
+    this.authSrvc.setBalance(+(this.authSrvc.getBalance() + this.bettingValue).toFixed(2));
+    this.historic.push({ value: this.bettingValue, won: true });
     this.bettingValue = 0;
     this.playing = false;
   }
@@ -81,6 +84,7 @@ export class HomeComponent {
       this.bettingValue = 0;
       this.playing = false;
       this.lost = true;
+      this.historic.push({ value: this.betAmount, won: false });
     }
     else if (this.currentValue > this.newValue) {
       this.bettingValue = +((this.bettingValue * this.odds.getUnderValue(this.currentValue)).toFixed(2));
@@ -95,6 +99,7 @@ export class HomeComponent {
       this.bettingValue = 0;
       this.playing = false;
       this.lost = true;
+      this.historic.push({ value: this.betAmount, won: false });
     }
     else if (this.currentValue < this.newValue) {
       this.bettingValue = +((this.bettingValue * this.odds.getOverValue(this.currentValue)).toFixed(2));

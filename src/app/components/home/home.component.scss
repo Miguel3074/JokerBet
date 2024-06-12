@@ -76,6 +76,14 @@ h1.odd {
     padding-bottom: 10px;
 }
 
+app-historic {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: 75px;
+}
+
+
 @media screen and (max-width: 700px) {
     .guesser {
         display: flex;
@@ -103,7 +111,7 @@ h1.odd {
         border-top: 35px solid red;
     }
 
-    .form{
+    .form {
         margin-right: 0;
     }
 }
