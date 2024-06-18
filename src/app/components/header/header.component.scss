@@ -43,3 +43,11 @@
 .logOutButton{
     background-color: var(--cx-dark-body-color);
 }
+
+@media screen and (max-width: 700px) {
+
+    .loggedInWide {
+        width: 100%;
+    }
+    
+}

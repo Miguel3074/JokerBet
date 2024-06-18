@@ -1,8 +1,6 @@
-<div #scrollContainer>
-  <div *ngFor="let bet of historic">
-    <div [ngClass]="{'win': bet.won, 'lost': !bet.won}">
-      <span *ngIf="bet.won">{{ bet.value }}x</span>
-      <span *ngIf="!bet.won">L</span>
-    </div>
+<div *ngFor="let bet of historic">
+  <div [ngClass]="{'win': bet.won, 'lost': !bet.won}">
+    <span *ngIf="bet.won">{{ bet.value }}x</span>
+    <span *ngIf="!bet.won">L</span>
   </div>
 </div>

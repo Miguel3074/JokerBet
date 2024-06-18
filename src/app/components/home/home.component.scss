@@ -114,4 +114,9 @@ app-historic {
     .form {
         margin-right: 0;
     }
+
+    app-historic {
+        flex-direction: row !important;
+        margin-left: 0px;
+    }
 }
